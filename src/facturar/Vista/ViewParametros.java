@@ -5,7 +5,14 @@
  */
 package facturar.Vista;
 
-import facturar.Controlador.ParametrosControlador;
+import facturar.Controlador.ConsecutivoControlador;
+import facturar.Controlador.EstArticulosControlador;
+import facturar.Controlador.EstClientesControlador;
+import facturar.Modelo.Consecutivos;
+import facturar.Modelo.EstArticulos;
+import facturar.Modelo.Repositorio;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,11 +20,36 @@ import facturar.Controlador.ParametrosControlador;
  */
 public class ViewParametros extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewEstados
-     */
+   Repositorio<Consecutivos> regConsecutivos;
+      List<Consecutivos> List;
+        Consecutivos a;
+
     public ViewParametros() {
         initComponents();
+        regConsecutivos = new Repositorio<>();
+        regConsecutivos.cargar("Consecutivos");
+        List= regConsecutivos.getLista();
+      
+        try {
+            for (int i = 0; i < List.size(); i++) {
+               
+             a =  regConsecutivos.getLista().get(i);
+
+           }
+           if("Articulos".equals(cboTipo.getSelectedItem().toString())){
+        txtId.setText(""+a.getnEstArticulos());
+        }
+             if("Clientes".equals(cboTipo.getSelectedItem().toString())){
+        txtId.setText(""+a.getnEstClientes());
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No hay estados creados anteriormente");
+            
+        }
+       
+           
+      
+       
     }
 
     /**
@@ -35,12 +67,15 @@ public class ViewParametros extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        txtAceso = new javax.swing.JLabel();
         txtDeterminante = new javax.swing.JTextField();
         btnGenerar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         cboEstado = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        cboTipo = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        txtId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,8 +113,8 @@ public class ViewParametros extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
         jLabel2.setText("DETERMINANTE:");
 
-        jLabel4.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
-        jLabel4.setText("ACESO:");
+        txtAceso.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        txtAceso.setText("ACESO:");
 
         btnGenerar.setText("GENERAR");
         btnGenerar.addActionListener(new java.awt.event.ActionListener() {
@@ -94,22 +129,46 @@ public class ViewParametros extends javax.swing.JFrame {
 
         cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
 
+        jLabel3.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        jLabel3.setText("ID:");
+
+        cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Clientes", "Articulos" }));
+        cboTipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cboTipoItemStateChanged(evt);
+            }
+        });
+        cboTipo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                cboTipoPropertyChange(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Yu Gothic Light", 0, 14)); // NOI18N
+        jLabel7.setText("TIPO:");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6)
-                    .addComponent(txtDeterminante, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                    .addComponent(btnGenerar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtId)
-                    .addComponent(cboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtAceso)
+                            .addComponent(jLabel2))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(cboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtDeterminante, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                        .addComponent(btnGenerar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cboEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(64, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -118,18 +177,24 @@ public class ViewParametros extends javax.swing.JFrame {
                 .addGap(12, 12, 12)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDeterminante, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
+                    .addComponent(txtAceso)
                     .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnGenerar)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -137,7 +202,7 @@ public class ViewParametros extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(47, Short.MAX_VALUE)
+                .addContainerGap(35, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -150,7 +215,7 @@ public class ViewParametros extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(44, Short.MAX_VALUE)
+                .addContainerGap(45, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
@@ -161,10 +226,47 @@ public class ViewParametros extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        
-        ParametrosControlador eC = new ParametrosControlador();
+        if("Articulos".equals(cboTipo.getSelectedItem().toString())){
+            EstArticulosControlador eC = new EstArticulosControlador();
+            ConsecutivoControlador cs = new ConsecutivoControlador();
+        cs.crear("EstArticulos");
         eC.crear(this);
+        }
+          if("Clientes".equals(cboTipo.getSelectedItem().toString())){
+        EstClientesControlador eC = new EstClientesControlador();
+        ConsecutivoControlador cs = new ConsecutivoControlador();
+        cs.crear("EstClientes");
+        eC.crear(this);
+        }
+        
     }//GEN-LAST:event_btnGenerarActionPerformed
+
+    private void cboTipoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_cboTipoPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboTipoPropertyChange
+
+    private void cboTipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cboTipoItemStateChanged
+        // TODO add your handling code here:
+         if("Articulos".equals(cboTipo.getSelectedItem().toString())){
+        txtAceso.setText("DISPONIBILIDAD:");
+             try {
+                 txtId.setText(""+a.getnEstArticulos());
+             } catch (Exception e) {
+                 JOptionPane.showMessageDialog(null, "Lista de etsados vacia el id a tomar sera 0");
+             }
+         
+        }
+          if("Clientes".equals(cboTipo.getSelectedItem().toString())){
+        txtAceso.setText("ACESO:");
+              try {
+                  txtId.setText(""+a.getnEstClientes());
+              } catch (Exception e) {
+              JOptionPane.showMessageDialog(null, "Lista de etsados vacia el id a tomar sera 0");
+              }
+         
+        }
+        
+    }//GEN-LAST:event_cboTipoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -205,15 +307,18 @@ public class ViewParametros extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnGenerar;
     public javax.swing.JComboBox<String> cboEstado;
+    public javax.swing.JComboBox<String> cboTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel txtAceso;
     public javax.swing.JTextField txtDeterminante;
-    public javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtId;
     // End of variables declaration//GEN-END:variables
 }

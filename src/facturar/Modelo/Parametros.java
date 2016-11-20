@@ -3,21 +3,20 @@ package facturar.Modelo;
 
 
 
-public class Parametros {
+public abstract class Parametros {
     
     private int id;
     private String Determinante;
-    private String Acceso;
+    
    
-    public Parametros() {
-  
-    }
 
-    public Parametros(int id, String Determinante, String Acceso) {
+    public Parametros(int id, String Determinante) {
         this.id = id;
         this.Determinante = Determinante;
-        this.Acceso = Acceso;
+       
     }
+    
+    public  Parametros(){}
 
  
       
@@ -40,14 +39,7 @@ public class Parametros {
         this.Determinante = Determinante;
     }
 
-    public String getAcceso() {
-        return Acceso;
-    }
-
-    public void setAcceso(String Acceso) {
-        this.Acceso = Acceso;
-    }
-
+    
  
     
    

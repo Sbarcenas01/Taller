@@ -6,6 +6,9 @@
 package facturar.Vista;
 
 import facturar.Controlador.ClienteControlador;
+import facturar.Controlador.ConsecutivoControlador;
+import facturar.Modelo.Consecutivos;
+import facturar.Modelo.EstClientes;
 import facturar.Modelo.Parametros;
 import facturar.Modelo.Repositorio;
 import facturar.Modelo.Validar;
@@ -23,22 +26,38 @@ public class ViewCliente extends javax.swing.JFrame {
     /**
      * Creates new form ViewCliente
      */
+    
+    Repositorio<Consecutivos> regConsecutivos;
+      List<Consecutivos> List;
+        Consecutivos a;
+
     public HashMap <String,String> mapCli;
     public ViewCliente() {
+        regConsecutivos = new Repositorio<>();
+        regConsecutivos.cargar("Consecutivos");
+
         initComponents();
+        Consecutivos cs = new Consecutivos();
+        List= regConsecutivos.getLista();
+           for (int i = 0; i < List.size(); i++) {
+               
+             a =  regConsecutivos.getLista().get(i);
+           }
+        txtId.setText(""+a.getnClientes());
        
        HashMap <String,String> map=new HashMap<String,String>();
-        Repositorio<Parametros> regEstado =new Repositorio();
-        regEstado.cargar("Parametros");
-        List<Parametros>Parametros =regEstado.getLista();
-      
-        for (int i=0;i < Parametros.size();i++){
+        Repositorio<EstClientes> regEstado =new Repositorio();
+        regEstado.cargar("EstClientes");
+        List<EstClientes>Parametros =regEstado.getLista();
+        
+            for (int i=0;i < Parametros.size();i++){
            
            map.put(Integer.toString(Parametros.get(i).getId()),Parametros.get(i).getDeterminante());
 
         }
         mapCli=map;
-       cboEstado.setModel(new DefaultComboBoxModel( map.values().toArray()));
+       cboEstado.setModel(new DefaultComboBoxModel( map.values().toArray())); 
+      
 
     
     }
@@ -70,7 +89,7 @@ public class ViewCliente extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         btnCanelar = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
+        txtId = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,7 +165,7 @@ public class ViewCliente extends javax.swing.JFrame {
 
         jLabel7.setText("Estado");
 
-        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo", "Suspendido", " " }));
+        cboEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -164,17 +183,6 @@ public class ViewCliente extends javax.swing.JFrame {
 
         jLabel8.setText("Id");
 
-        txtId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
-            }
-        });
-        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdKeyTyped(evt);
-            }
-        });
-
         javax.swing.GroupLayout Panel_centralLayout = new javax.swing.GroupLayout(Panel_central);
         Panel_central.setLayout(Panel_centralLayout);
         Panel_centralLayout.setHorizontalGroup(
@@ -191,17 +199,6 @@ public class ViewCliente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(txtCorreo))
                     .addGroup(Panel_centralLayout.createSequentialGroup()
-                        .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(Panel_centralLayout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(78, 78, 78))
-                            .addGroup(Panel_centralLayout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(19, 19, 19)))
-                        .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNit, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(Panel_centralLayout.createSequentialGroup()
                         .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel7)
@@ -214,23 +211,32 @@ public class ViewCliente extends javax.swing.JFrame {
                                     .addGap(45, 45, 45))
                                 .addComponent(btnCanelar))
                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_centralLayout.createSequentialGroup()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(78, 78, 78)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(161, 161, 161)))
+                    .addGroup(Panel_centralLayout.createSequentialGroup()
+                        .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(Panel_centralLayout.createSequentialGroup()
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(78, 78, 78))
+                                .addGroup(Panel_centralLayout.createSequentialGroup()
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGap(19, 19, 19)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Panel_centralLayout.createSequentialGroup()
+                                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(78, 78, 78)))
+                        .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtNit, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRazonSocial, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(163, Short.MAX_VALUE))
         );
         Panel_centralLayout.setVerticalGroup(
             Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(Panel_centralLayout.createSequentialGroup()
-                .addGap(12, 12, 12)
-                .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Panel_centralLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
+                    .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(Panel_centralLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(Panel_centralLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -321,6 +327,8 @@ public class ViewCliente extends javax.swing.JFrame {
         
         ClienteControlador cliControl = new ClienteControlador();
         cliControl.crear(this);
+        ConsecutivoControlador cs = new ConsecutivoControlador();
+        cs.crear("Cliente");
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void txtNitKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNitKeyTyped
@@ -331,14 +339,6 @@ public class ViewCliente extends javax.swing.JFrame {
     private void btnCanelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCanelarActionPerformed
        this.dispose();
     }//GEN-LAST:event_btnCanelarActionPerformed
-
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
-
-    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdKeyTyped
 
     /**
      * @param args the command line arguments
@@ -391,7 +391,7 @@ public class ViewCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     public javax.swing.JTextField txtCorreo;
     public javax.swing.JTextField txtDireccion;
-    public javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtId;
     public javax.swing.JTextField txtNit;
     public javax.swing.JTextField txtRazonSocial;
     public javax.swing.JTextField txtTelefono;

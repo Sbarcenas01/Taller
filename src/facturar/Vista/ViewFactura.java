@@ -5,9 +5,11 @@
  */
 package facturar.Vista;
 
+import facturar.Controlador.ConsecutivoControlador;
 import facturar.Controlador.DetFacturaControlador;
 import facturar.Controlador.FacturaControlador;
 import facturar.Modelo.Cliente;
+import facturar.Modelo.Consecutivos;
 import facturar.Modelo.Repositorio;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +18,7 @@ import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,24 +26,41 @@ import javax.swing.JFrame;
  */
 public class ViewFactura extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewFactura
-     */
+   Repositorio<Consecutivos> regConsecutivos;
+      List<Consecutivos> List;
+        Consecutivos a;
+
     public HashMap <String,String> mapCli;
     public ViewFactura() {
-        initComponents();
+        regConsecutivos = new Repositorio<>();
+        regConsecutivos.cargar("Consecutivos");
+
+        
+        
+        List= regConsecutivos.getLista();
+           for (int i = 0; i < List.size(); i++) {
+               
+             a =  regConsecutivos.getLista().get(i);
+
+           }
+           
+           txtId.setText(""+a.getnFacturas());
+           initComponents();
+        
        HashMap <String,String> map=new HashMap<String,String>();
         Repositorio<Cliente> regClientes =new Repositorio();
         regClientes.cargar("Cliente");
         List<Cliente> clientes =regClientes.getLista();
-      
-        for (int i=0;i < clientes.size();i++){
+        
+            for (int i=0;i < clientes.size();i++){
            
            map.put(Integer.toString(clientes.get(i).getId()), clientes.get(i).getRazonSocial());
 
         }
         mapCli=map;
        cboClientes.setModel(new DefaultComboBoxModel( map.values().toArray()));
+      
+        
 
     }
 
@@ -56,7 +76,6 @@ public class ViewFactura extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         PanelSup = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         cboClientes = new javax.swing.JComboBox();
@@ -67,6 +86,7 @@ public class ViewFactura extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
         txtFecha = new com.toedter.calendar.JDateChooser();
+        txtId = new javax.swing.JLabel();
         PanelCentral = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaDet = new javax.swing.JTable();
@@ -132,20 +152,18 @@ public class ViewFactura extends javax.swing.JFrame {
                 .addGroup(PanelSupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
                 .addGroup(PanelSupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelSupLayout.createSequentialGroup()
                         .addComponent(cboClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelSupLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE))
+                    .addGroup(PanelSupLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(PanelSupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PanelSupLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnContinuar))
-                            .addGroup(PanelSupLayout.createSequentialGroup()
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, Short.MAX_VALUE)
-                                .addComponent(jLabel7)))
+                            .addComponent(btnContinuar)
+                            .addComponent(jLabel7))
                         .addGap(33, 33, 33)))
                 .addGroup(PanelSupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelSupLayout.createSequentialGroup()
@@ -170,10 +188,10 @@ public class ViewFactura extends javax.swing.JFrame {
                 .addGroup(PanelSupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelSupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel1)
-                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
                         .addComponent(txtNum, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel7))
+                        .addComponent(jLabel7)
+                        .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(PanelSupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -185,7 +203,7 @@ public class ViewFactura extends javax.swing.JFrame {
                 .addGroup(PanelSupLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnContinuar)
                     .addComponent(btnAddProd))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         TablaDet.setModel(new javax.swing.table.DefaultTableModel(
@@ -421,8 +439,11 @@ public class ViewFactura extends javax.swing.JFrame {
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         // funcionalidad para lanzar creación de Factura 
       FacturaControlador fcontrol = new FacturaControlador();  
-      fcontrol.crear(this);  
+      fcontrol.crear(this); 
+      ConsecutivoControlador cs = new ConsecutivoControlador();
+        cs.crear("Factura");
       this.btnContinuar.setEnabled(false);
+      
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -495,7 +516,7 @@ public class ViewFactura extends javax.swing.JFrame {
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JTextField txtDireccion;
     public com.toedter.calendar.JDateChooser txtFecha;
-    public javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtId;
     private javax.swing.JTextField txtIva;
     public javax.swing.JTextField txtIva1;
     public javax.swing.JTextField txtNum;

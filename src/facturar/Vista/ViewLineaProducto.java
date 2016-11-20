@@ -321,7 +321,7 @@ public class ViewLineaProducto extends JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new ViewLineaProducto().setVisible(true);
+            //new ViewLineaProducto().setVisible(true);
            
         });
     }

@@ -5,13 +5,17 @@
  */
 package facturar.Vista;
 
+import facturar.Controlador.ConsecutivoControlador;
 import facturar.Controlador.ProductoControlador;
 import facturar.Modelo.Cliente;
+import facturar.Modelo.Consecutivos;
+import facturar.Modelo.EstArticulos;
 import facturar.Modelo.Parametros;
 import facturar.Modelo.Repositorio;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import static jdk.nashorn.internal.objects.NativeArray.map;
 
 /**
@@ -24,24 +28,45 @@ public class ViewProducto extends javax.swing.JFrame {
      * Creates new form ViewProducto
      */
      public HashMap <String,String> mapCli;
+     Repositorio<Consecutivos> regConsecutivos;
+      List<Consecutivos> List;
+        Consecutivos a;
+
     public ViewProducto() {
     
         
+regConsecutivos = new Repositorio<>();
+        regConsecutivos.cargar("Consecutivos");
+
+
+ List= regConsecutivos.getLista();
+           for (int i = 0; i < List.size(); i++) {
+               
+             a =  regConsecutivos.getLista().get(i);
+}
+           
          
    
         initComponents();
        HashMap <String,String> map=new HashMap<String,String>();
-        Repositorio<Parametros> regEstado =new Repositorio();
-        regEstado.cargar("Parametros");
-        List<Parametros>Parametros =regEstado.getLista();
-      
-        for (int i=0;i < Parametros.size();i++){
+       
+       
+        Repositorio<EstArticulos> regEstArticulos =new Repositorio();
+        regEstArticulos.cargar("EstArticulos");
+        List<EstArticulos>Parametros = regEstArticulos.getLista();
+        try {
+             for (int i=0;i < Parametros.size();i++){
            
            map.put(Integer.toString(Parametros.get(i).getId()),Parametros.get(i).getDeterminante());
 
         }
         mapCli=map;
        cboEstado.setModel(new DefaultComboBoxModel( map.values().toArray()));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No se encontraron estados validos");
+        }
+        txtId.setText(a.getnProductos()+"");
+       
 
     }
 
@@ -60,7 +85,6 @@ public class ViewProducto extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtPrecio = new javax.swing.JTextField();
@@ -69,6 +93,7 @@ public class ViewProducto extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         cboEstado = new javax.swing.JComboBox();
+        txtId = new javax.swing.JLabel();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -150,11 +175,7 @@ public class ViewProducto extends javax.swing.JFrame {
                 .addGap(83, 83, 83)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(txtDescripcion))
+                        .addComponent(txtDescripcion)
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -162,7 +183,10 @@ public class ViewProducto extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(cboEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtPrecio))
-                        .addGap(113, 113, 113))))
+                        .addGap(113, 113, 113))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(74, 74, 74)
                 .addComponent(btnAceptar)
@@ -180,11 +204,14 @@ public class ViewProducto extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(11, 11, 11))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(txtId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -221,7 +248,7 @@ public class ViewProducto extends javax.swing.JFrame {
                 .addComponent(PanelSup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
@@ -240,6 +267,8 @@ public class ViewProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
          ProductoControlador prodControl = new ProductoControlador();
         prodControl.crear(this);
+        ConsecutivoControlador cs = new ConsecutivoControlador();
+        cs.crear("Producto");
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -299,7 +328,7 @@ public class ViewProducto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     public javax.swing.JTextField txtDescripcion;
-    public javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtId;
     public javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

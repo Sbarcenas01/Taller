@@ -37,8 +37,13 @@ public  class Helper {
               break;
               case "EstClientes":
               tipo=new TypeToken<List<EstClientes>>(){}.getType();
-            case "EstArticulos":
+                break;
+              case "EstArticulos":
               tipo=new TypeToken<List<EstArticulos>>(){}.getType();
+              break;
+              case "Consecutivos":
+              tipo=new TypeToken<List<Consecutivos>>(){}.getType();
+              break;
        }
        return tipo;
 }

@@ -6,6 +6,7 @@
 package facturar.Controlador;
 
 
+import facturar.Modelo.Consecutivos;
 import facturar.Modelo.Producto;
 import facturar.Modelo.Repositorio;
 import facturar.Vista.ViewProducto;
@@ -20,15 +21,34 @@ import javax.swing.JOptionPane;
  */
 public class ProductoControlador {
       Repositorio <Producto> regProducto;
+      Repositorio<Consecutivos> regConsecutivos;
+      List<Consecutivos> List;
+        Consecutivos a;
+
     public ProductoControlador() {
         regProducto = new Repositorio<>();
         regProducto.cargar("Producto");
+        regConsecutivos = new Repositorio<>();
+        regConsecutivos.cargar("Consecutivos");
+
+
     }
     public void  crear(ViewProducto  vprod){
-                
-       Producto prod = new Producto(); 
-       prod.setId(Integer.parseInt(vprod.txtId.getText()));
-       prod.setId(Integer.parseInt(vprod.txtId.getText()));
+                List= regConsecutivos.getLista();
+                Producto prod = new Producto();
+                try {
+             for (int i = 0; i < List.size(); i++) {
+               
+             a =  regConsecutivos.getLista().get(i);
+           }
+             prod.setId(a.getnProductos());
+        } catch (Exception e) {
+            prod.setId(0);
+        }
+          
+        
+        
+       
        prod.setDescripcion(vprod.txtDescripcion.getText());
        prod.setPrecio(Double.parseDouble(vprod.txtPrecio.getText()));
        prod.setEstado(vprod.cboEstado.getSelectedItem().toString());

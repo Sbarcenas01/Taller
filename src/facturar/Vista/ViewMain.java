@@ -172,7 +172,7 @@ public class ViewMain extends javax.swing.JFrame {
                 break;
                 
             case "Salir":
-                int resp = JOptionPane.showConfirmDialog (null, "Esta seguro qdesea Salir?");
+                int resp = JOptionPane.showConfirmDialog(null, "Esta seguro qdesea Salir?");
                 if(resp== JOptionPane.YES_OPTION){
                     System.exit(-1);
                 }

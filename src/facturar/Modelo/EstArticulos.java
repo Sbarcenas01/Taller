@@ -11,4 +11,21 @@ package facturar.Modelo;
  */
 public class EstArticulos extends Parametros{
     
+    private String disponibilidad;
+    
+    public EstArticulos(int id, String Determinante) {
+        super(id, Determinante);
+    }
+
+    public EstArticulos() {
+        }
+
+    public String getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(String disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
+    
 }
