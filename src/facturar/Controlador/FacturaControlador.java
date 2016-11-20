@@ -40,6 +40,7 @@ public class FacturaControlador {
         JOptionPane.showMessageDialog(null,"Registro Ha sido Guardado");
         vfact.btnAddProd.setEnabled(true);
       }
+    
     public Factura traer(int id){         
         return (Factura)regFactura.traer(id);
      } 

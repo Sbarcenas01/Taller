@@ -1,28 +1,28 @@
 
 package facturar.Modelo;
 
-/**
- *
- * @author SBarc
- */
-public abstract class Parametros {
+
+
+public class Parametros {
     
-    protected int id;
-    protected String determinante;
-
-    public Parametros(String determinante) {
-        this.determinante = determinante;
-    }
-    
-    public Parametros(){}
-
-    public String getDeterminante() {
-        return determinante;
+    private int id;
+    private String Determinante;
+    private String Acceso;
+   
+    public Parametros() {
+  
     }
 
-    public void setDeterminante(String determinante) {
-        this.determinante = determinante;
+    public Parametros(int id, String Determinante, String Acceso) {
+        this.id = id;
+        this.Determinante = Determinante;
+        this.Acceso = Acceso;
     }
+
+ 
+      
+
+
 
     public int getId() {
         return id;
@@ -31,6 +31,25 @@ public abstract class Parametros {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getDeterminante() {
+        return Determinante;
+    }
+
+    public void setDeterminante(String Determinante) {
+        this.Determinante = Determinante;
+    }
+
+    public String getAcceso() {
+        return Acceso;
+    }
+
+    public void setAcceso(String Acceso) {
+        this.Acceso = Acceso;
+    }
+
  
     
+   
 }
+

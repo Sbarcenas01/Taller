@@ -35,7 +35,11 @@ public  class Helper {
            case "DetFactura":
                tipo=new TypeToken<List<DetFactura>>(){}.getType();
               break;
-      }
+              case "EstClientes":
+              tipo=new TypeToken<List<EstClientes>>(){}.getType();
+            case "EstArticulos":
+              tipo=new TypeToken<List<EstArticulos>>(){}.getType();
+       }
        return tipo;
 }
 }

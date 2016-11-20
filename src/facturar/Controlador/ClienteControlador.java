@@ -1,4 +1,4 @@
-
+  
 package facturar.Controlador;
 
 import facturar.Modelo.Cliente;
@@ -8,7 +8,7 @@ import facturar.Vista.ViewCliente;
 import javax.swing.JOptionPane;
 
 public class ClienteControlador {
-     Repositorio <Cliente> regCliente;
+     Repositorio<Cliente> regCliente;
     public ClienteControlador() {
         regCliente = new Repositorio<>();
         regCliente.cargar("Cliente");

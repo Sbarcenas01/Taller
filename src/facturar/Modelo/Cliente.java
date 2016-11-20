@@ -1,9 +1,7 @@
 
 package facturar.Modelo;
 
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import java.util.List;
+
 
 public class Cliente {
     

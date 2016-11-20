@@ -6,7 +6,12 @@
 package facturar.Vista;
 
 import facturar.Controlador.ClienteControlador;
+import facturar.Modelo.Parametros;
+import facturar.Modelo.Repositorio;
 import facturar.Modelo.Validar;
+import java.util.HashMap;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,8 +23,24 @@ public class ViewCliente extends javax.swing.JFrame {
     /**
      * Creates new form ViewCliente
      */
+    public HashMap <String,String> mapCli;
     public ViewCliente() {
         initComponents();
+       
+       HashMap <String,String> map=new HashMap<String,String>();
+        Repositorio<Parametros> regEstado =new Repositorio();
+        regEstado.cargar("Parametros");
+        List<Parametros>Parametros =regEstado.getLista();
+      
+        for (int i=0;i < Parametros.size();i++){
+           
+           map.put(Integer.toString(Parametros.get(i).getId()),Parametros.get(i).getDeterminante());
+
+        }
+        mapCli=map;
+       cboEstado.setModel(new DefaultComboBoxModel( map.values().toArray()));
+
+    
     }
 
     /**

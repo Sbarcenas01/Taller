@@ -165,7 +165,7 @@ public class ViewMain extends javax.swing.JFrame {
                 break;
                 
              case "Estados":  
-                ViewEstados vEstados = new ViewEstados();
+                ViewParametros vEstados = new ViewParametros();
                 vEstados.setLocationRelativeTo(null);
                 vEstados.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                 vEstados.setVisible(true);

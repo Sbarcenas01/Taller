@@ -1,5 +1,6 @@
 package facturar.Modelo;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -39,6 +40,35 @@ public  class Repositorio <T>  {
         }
     } 
     
+    /*public void cargar (String nombre) {
+    String ruta="datos/"+nombre+".json";
+    
+    File archivo =new File(ruta);
+    if (!archivo.exists()) return;
+    
+    Gson gson =new Gson();
+    FileReader reader;
+    try {
+    reader = new FileReader(ruta);
+    Type tipo=null;
+    if (nombre =="Cliente")
+    tipo = new TypeToken<List<Cliente>>(){}.getType();
+    if (nombre =="Producto")
+    tipo = new TypeToken<List<Producto>>(){}.getType();
+    if (nombre =="Parametros")
+    tipo = new TypeToken<List<Parametros>>(){}.getType();
+    if (nombre =="Factura")
+    tipo = new TypeToken<List<Factura>>(){}.getType();
+    if(nombre =="DetFactura")
+    tipo = new TypeToken<List<DetFactura>>(){}.getType();
+    lista = gson.fromJson(reader,tipo);
+    
+    int x=1;
+    } catch (FileNotFoundException ex) {
+    System.out.println(ex);
+    }
+    
+    }*/
      public void cargar (String nombre)  {
         String ruta="datos/"+nombre+".json";
     
@@ -61,9 +91,9 @@ public  class Repositorio <T>  {
     }
   
     public void adicionar(T t) {
-       if (lista == null)
+       if (lista == null){
             lista=new ArrayList<>();      
-       lista.add(t);
+       }else{lista.add(t);}
             
        
     }
